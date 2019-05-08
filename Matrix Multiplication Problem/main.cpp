@@ -2,21 +2,22 @@
 #include<iomanip> 
 #include<cstdio> 
 using namespace std; 
-int counter = 0; 
-void print_matrix(int m[5][5] , int n)
+int counter = 0;
+int** Create2dimArray(int n);
+void print_matrix(int **arr , int n)
 { 
 	for(int i = 0 ; i< n ; i++)
 	{ 
 		for(int j = 0 ; j< n ; j++)
 	{ 
-			cout << setw(10) << m[i][j]; 
+			cout << setw(10) << arr[i][j]; 
 	} 
 	cout << endl; 
 	} 
 } 
 char ccc[50]; 
 int cc = 0; 
-void print(int s[5][5],int l,int h) 
+void print(int **s,int l,int h) 
 { 
 	if(s[l][h]!=0) 
 	{ 
@@ -43,15 +44,18 @@ void print(int s[5][5],int l,int h)
 		printf("(parenthesis[%d][%d] = %d) != 0 ", l,h , s[l][h]); 
 		cout << " ,call function again and then print ) \n";
 		///cout<<")";
-		ccc[cc] = ')'; cc++; 
+		ccc[cc] = ')'; 
+		cc++; 
 	} 
 } 
 int main()
 {
-	int n = 5, i;
-	int p[] = { 12,7,8,5,3 };
-	int m[5][5] = { 0 };
-	int s[5][5] = { 0 };
+	int n, i;
+	cout << "Enter how many matrices do you want to have: ";
+	cin >> n;
+	int p[] = { 4,3,8,5,12,2,4,3,8,3};
+	int** m = Create2dimArray(n);
+	int** s = Create2dimArray(n);
 	int j, q;
 	cout << "All Matrix Dimensions : \nmatrix_size = ";
 	for (int i = 0; i < n; i++)
@@ -80,10 +84,20 @@ int main()
 	}
 	cout << "TOTAL MULTIPLICATIONS : " << m[1][n - 1] << " \n\n";
 	cout << "\n\n\n\nPARENTHESIS : \n";
-	print(s, 1, 4);
+	print(s, 1, n-1);
 	cout << endl << endl;
 	cout << "\nFinal Parenthesis : ";
 	for (int i = 0; i < cc; i++)
 		cout << ccc[i];
 	cout << endl << endl << endl << endl << endl;
+}
+int **Create2dimArray(int n)
+{
+	int** arr = new int* [n];
+	for (int i = 0; i < n; ++i)
+		arr[i] = new int[n];
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+			arr[i][j] = 0;
+	return arr;
 }
